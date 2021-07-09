@@ -50,11 +50,11 @@
             <artifactId>mssql</artifactId>
             <version>7.4</version>
         </dependency>
-        <dependency>
+<!--         <dependency>
             <groupId>net.snowflake</groupId>
             <artifactId>snowflake-jdbc</artifactId>
             <version>3.12.9</version>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>com.terajdbc4</groupId>
             <artifactId>terajdbc4</artifactId>
