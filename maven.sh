@@ -21,6 +21,7 @@ mvn install:install-file -Dfile=lib/ojdbc-1.1.1.jar -DgroupId=com -DartifactId=o
 mvn install:install-file -Dfile=lib/RedshiftJDBC42-no-awssdk-1.2.53.1080.jar -DgroupId=RedshiftJDBC42 -DartifactId=RedshiftJDBC42 -Dversion=latest -Dpackaging=jar
 mvn install:install-file -Dfile=lib/terajdbc4.jar -DgroupId=com.terajdbc4 -DartifactId=terajdbc4 -Dversion=latest -Dpackaging=jar
 mvn install:install-file -Dfile=lib/tdgssconfig.jar -DgroupId=com.teraconfig4 -DartifactId=teraconfig4 -Dversion=latest -Dpackaging=jar
+mvn install:install-file -Dfile=lib/snowflake-jdbc-3.12.9.jar -DgroupId=net.snowflake -DartifactId=snowflake -Dversion=3.12.9 -Dpackaging=jar
 
 
 mvn package
