@@ -24,6 +24,3 @@ mvn install:install-file -Dfile=lib/tdgssconfig.jar -DgroupId=com.teraconfig4 -D
 
 
 mvn package
-
-
-sudo cp target/gudusoft.dlineage.jar ../dlineage/bin/
