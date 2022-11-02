@@ -1,7 +1,7 @@
 #!/bin/bash
 
-sudo rm -rf /home/vsts/.m2/settings.xml
-cp settings.xml /home/vsts/.m2/
+# sudo rm -rf /home/vsts/.m2/settings.xml
+# cp settings.xml /home/vsts/.m2/
 echo 'cp settings success.'
 
 # mvn deploy:deploy-file -Dfile=lib/gudusoft.gsqlparser.jar -DgroupId=gudusoft.gsqlparser -DartifactId=gsqlparser -Dversion=latest -Dpackaging=jar -Durl=https://pkgs.dev.azure.com/gudusoftware/test/_packaging/maven/maven/v1
