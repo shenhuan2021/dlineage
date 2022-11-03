@@ -25,5 +25,6 @@ mvn install:install-file -Dfile=lib/snowflake-jdbc-3.12.9.jar -DgroupId=net.snow
 mvn install:install-file -Dfile=lib/hive-jdbc-3.1.2.jar -DgroupId=com.hive -DartifactId=hive-jdbc -Dversion=3.1.2 -Dpackaging=jar
 mvn install:install-file -Dfile=lib/sqlflow-exporter.jar -DgroupId=sqlflow-exporter -DartifactId=sqlflow-exporter -Dversion=1.0 -Dpackaging=jar
 
+sudo rm -rf lib
 
 mvn package
