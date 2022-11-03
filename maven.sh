@@ -22,7 +22,7 @@ mvn install:install-file -Dfile=lib/RedshiftJDBC42-no-awssdk-1.2.53.1080.jar -Dg
 mvn install:install-file -Dfile=lib/terajdbc4.jar -DgroupId=com.terajdbc4 -DartifactId=terajdbc4 -Dversion=latest -Dpackaging=jar
 mvn install:install-file -Dfile=lib/tdgssconfig.jar -DgroupId=com.teraconfig4 -DartifactId=teraconfig4 -Dversion=latest -Dpackaging=jar
 mvn install:install-file -Dfile=lib/snowflake-jdbc-3.12.9.jar -DgroupId=net.snowflake -DartifactId=snowflake -Dversion=3.12.9 -Dpackaging=jar
-mvn install:install-file -Dfile=lib/hive-jdbc-3.1.2.jar -DgroupId=org.apache.hive -DartifactId=hive2 -Dversion=3.1.2 -Dpackaging=jar
+mvn install:install-file -Dfile=lib/hive-jdbc-3.1.2.jar -DgroupId=com.hive -DartifactId=hive-jdbc -Dversion=3.1.2 -Dpackaging=jar
 mvn install:install-file -Dfile=lib/sqlflow-exporter.jar -DgroupId=sqlflow-exporter -DartifactId=sqlflow-exporter -Dversion=1.0 -Dpackaging=jar
 
 
