@@ -26,5 +26,5 @@ mvn install:install-file -Dfile=lib/hive-jdbc-3.1.2.jar -DgroupId=com.hive -Dart
 mvn install:install-file -Dfile=lib/sqlflow-exporter.jar -DgroupId=sqlflow-exporter -DartifactId=sqlflow-exporter -Dversion=1.0 -Dpackaging=jar
 
 sudo rm -rf lib
-set MAVEN_OPTS=-Xss10M
+set MAVEN_OPTS=-Xss5000M
 mvn package
