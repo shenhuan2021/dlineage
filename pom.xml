@@ -140,8 +140,8 @@
                     <source>1.8</source>
                     <target>1.8</target>
                     <fork>true</fork>
-               <meminitial>1048m</meminitial>
-               <maxmem>3600m</maxmem>
+               <meminitial>2048m</meminitial>
+               <maxmem>4600m</maxmem>
                 </configuration>
             </plugin>
                  <plugin>
