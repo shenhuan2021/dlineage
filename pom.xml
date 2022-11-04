@@ -139,8 +139,8 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-                    <meminitial>5048m</meminitial>
-                    <maxmem>6600m</maxmem>
+                    <meminitial>4048m</meminitial>
+                    <maxmem>5600m</maxmem>
                 </configuration>
   </plugin>
         </plugins>
