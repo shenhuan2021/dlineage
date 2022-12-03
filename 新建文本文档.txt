@@ -1,0 +1,8 @@
+select employee_guid, f_aes_decrypt_ecb_ctr(gender,'gc7leasoigbhn983dr3aa2ak') as gender from public.mio037_group_hr_all_employees limit 10;
+
+
+select employee_guid, f_aes_decrypt_ecb_ctr(gender,'zxygd8yrabpwijs7') as gender from public.mio037_group_hr_all_employees limit 10;
+
+select * from usecase_na_mio191__cmd__infohub__ih_agriedge_offer_dashboard_vw where f_decrypt(customer_signatory,'placeholder_str' ) ='placeholder_str';
+
+select bp_id as accountid, f_decrypt(name,'2ixu827uzuy88yx889rlv7vr') as accountname from mio03_bp_main where source_system_cde='placeholder_str' and record_type='placeholder_str' and flag_is_deleted=999 and bp_id<>'placeholder_str';
