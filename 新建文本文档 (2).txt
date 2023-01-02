@@ -1,53 +1,14 @@
-select
-	market_year,
-	crop,
-	divison_cd,
-	commercial_unit,
-	sales_office,
-	district_mgr,
-	sales_group,
-	order_sales_group,
-	sales_rep,
-	sold_to_bp_id,
-	account_name,
-	c.bill_add_statecode,
-	c.bill_add_state,
-	sum( case when crop = 'corn' then qfns else 0 end ) as qfns into
-		##sales_base
-	from
-		"na_swr"."v_fact_order_detail" a left join(
-			select
-				distinct material_id as material_id_dim,
-				trait_group,
-				material_group_id
-			from
-				na_swr.dim_product
-		) b on
-		a.material_id = b.material_id_dim left join na_swr.dim_master_calendar d on
-		a.q_order_dt = d.calendar_date left join(
-			select
-				fsap_id,
-				bill_add_statecode,
-				bill_add_state
-			from
-				na_swr.dim_growers
-		) c on
-		a.sold_to_bp_id = c.fsap_id
-	where
-		"sales_org_cde" = 'placeholder_str'
-		and b.material_group_id like 'placeholder_str'
-		and d.market_year = 999
-	group by
-		market_year,
-		crop,
-		divison_cd,
-		commercial_unit,
-		sales_office,
-		district_mgr,
-		sales_group,
-		order_sales_group,
-		sales_rep,
-		sold_to_bp_id,
-		account_name,
-		c.bill_add_statecode,
-		c.bill_add_state
+CREATE EXTERNAL TABLE spectrum_schema.stg099_Qliksense_in_process(
+  "qliksense_environment" VARCHAR(16383),
+  "qliksense_app_id" VARCHAR(16383),
+  "query_start_datetime" VARCHAR(16383),
+  "query_end_datetime" VARCHAR(16383),
+  "query_stmt" VARCHAR(16383))
+ROW FORMAT SERDE
+  'org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe'
+STORED AS INPUTFORMAT
+  'org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat'
+OUTPUTFORMAT
+  'org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat'
+LOCATION
+  's3://synintegration/DEV/ingestion/sqlflow/qliksense/in_process/'
