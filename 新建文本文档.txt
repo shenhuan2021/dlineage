@@ -1,8 +1,89 @@
-select employee_guid, f_aes_decrypt_ecb_ctr(gender,'gc7leasoigbhn983dr3aa2ak') as gender from public.mio037_group_hr_all_employees limit 10;
+DROP TABLE IF EXISTS tmp099_qliksense_lineage_fact ;
 
 
-select employee_guid, f_aes_decrypt_ecb_ctr(gender,'zxygd8yrabpwijs7') as gender from public.mio037_group_hr_all_employees limit 10;
+CREATE TEMPORARY TABLE IF NOT EXISTS tmp099_qliksense_lineage_fact
+(
+    fact_guid VARCHAR(32)   ENCODE lzo
+    ,qliksense_environment VARCHAR(255)   ENCODE lzo
+    ,qliksense_app_id VARCHAR(255)   ENCODE lzo
+    ,query_fingerprint_id VARCHAR(255)   ENCODE lzo
+    ,query_start_datetime TIMESTAMP WITHOUT TIME ZONE   ENCODE az64
+    ,query_end_datetime TIMESTAMP WITHOUT TIME ZONE   ENCODE az64
+    ,query_stmt VARCHAR(16383)   ENCODE lzo
+    ,mio_create_date_time TIMESTAMP WITHOUT TIME ZONE   ENCODE az64
+    ,mio_created_by VARCHAR(255)   ENCODE lzo
+    ,mio_update_date_time TIMESTAMP WITHOUT TIME ZONE   ENCODE az64
+    ,mio_updated_by VARCHAR(255)   ENCODE lzo
+)
+ distkey (fact_guid)
+;
 
-select * from usecase_na_mio191__cmd__infohub__ih_agriedge_offer_dashboard_vw where f_decrypt(customer_signatory,'placeholder_str' ) ='placeholder_str';
+---------------------------------------------------------------------------------------
+-->> revised upsert
 
-select bp_id as accountid, f_decrypt(name,'2ixu827uzuy88yx889rlv7vr') as accountname from mio03_bp_main where source_system_cde='placeholder_str' and record_type='placeholder_str' and flag_is_deleted=999 and bp_id<>'placeholder_str';
+
+    insert into tmp099_qliksense_lineage_fact
+        (
+            fact_guid
+            ,qliksense_environment
+            ,qliksense_app_id
+            ,query_fingerprint_id
+            ,query_start_datetime
+            ,query_end_datetime
+            ,query_stmt
+            ,mio_create_date_time
+            ,mio_created_by
+            ,mio_update_date_time
+            ,mio_updated_by
+      )
+    select
+           md5(nvl(qliksense_environment,'-')     ||
+                        nvl(qliksense_app_id,'-')     ||
+                        md5(nvl(query_stmt,'-'))     ||
+                        query_start_datetime
+                               ) as fact_guid
+                        ,qliksense_environment
+                        ,qliksense_app_id
+                        ,md5(nvl(query_stmt,'-')) as query_fingerprint_id
+                        ,TO_timestamp(query_start_datetime, 'YYYY-MM-DD HH:MI:SS') query_start_datetime
+                        ,TO_timestamp(query_end_datetime, 'YYYY-MM-DD HH:MI:SS') query_end_datetime
+                        ,query_stmt
+            ,getdate()           as mio_create_date_time
+            ,'mio_glue_system-mio099_t_qliksense_lineage_fact_load_prod'  as mio_created_by
+            ,getdate()           as mio_update_date_time
+            ,'mio_glue_system-mio099_t_qliksense_lineage_fact_load_prod'  as mio_updated_by
+        from spectrum_schema.stg099_Qliksense_in_process
+        ;
+
+
+    insert into mio.public.mio099_t_lineage_Qliksense_fact
+            (
+            fact_guid
+            ,qliksense_environment
+            ,qliksense_app_id
+            ,query_fingerprint_id
+            ,query_start_datetime
+            ,query_end_datetime
+            ,query_stmt
+            ,mio_create_date_time
+            ,mio_created_by
+            ,mio_update_date_time
+            ,mio_updated_by
+      )
+    select
+            fact_guid
+            ,qliksense_environment
+            ,qliksense_app_id
+            ,query_fingerprint_id
+            ,query_start_datetime
+            ,query_end_datetime
+            ,query_stmt
+            ,mio_create_date_time
+            ,mio_created_by
+            ,mio_update_date_time
+            ,mio_updated_by
+    from tmp099_qliksense_lineage_fact newly
+    where not exists
+        ( select fact_guid
+            from mio.public.mio099_t_lineage_Qliksense_fact exis)
+    ;
