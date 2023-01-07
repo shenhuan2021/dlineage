@@ -1,1 +1,25 @@
-'5070aa4c2a727082d95a84e23e12cacc','b30eac9caceff8838d227eeff3d740aa','d4edbcdcf67f4b4a5a67268daabf734b','17d31f999d8d07a6487518b21ace7a08','b59bb024a9365dd2ba4c2cd7407c5d03','060077eea2e93cbcc17de80f3c6c1352','d4cb6e8215114f8e8e24b771c9ee1cf3','d359bafcd76b1e805758ae0ffafed9cd','caa3102562e214d4f140aa258d9fe104','72973d0ae626dc2ca0b81200550f9129','e17a4ff6da7c3b260ecdcf51deba37b6','a7e6373f2929f6a03233b29d19f99b45','d052d9afeed7cde6bca0c24b4a60f18d','05e688898f9752865ed2b179ad3cbf47','592ff8f214af5c51e00525aac8074ca9','12d82d49da23613df8b7e092d0adf707','1f266102ceba7a388f54ad49831f9ff1','7d04a1bc7b5c287a851d307ff5ddb1bb','96b6c58dd6676aa9b732696a30f4a1d9','b667a2d34bcd32a7d904f923dc3bd297','a676f0c0bab6cf727d27bee9e90fc41b','e776bb050616170f5fe400aa7cead729','bf85a54c37ab2c64e5f688677b5c6419','0d3950e4cbb8d751e9ea6ce3d95da4c3','940d276bcdda35a267ec8920222e6026','c496788cc58c7ce62f9b33c668ffe022','1e952df01d6e27b4c00af049bb5ac8ba','fb0604450211e814f7c7e5d161409c5d','0b2184e8f4d64fa20005c12b32dcb6d7','ff6a1c244dc8e1cf57e90883c96b469a'
+select
+	m.material_id as "material_id in where clause",
+	m.identifier_type as "identifier_types with that value",
+	product_category,
+	t.identifier_type as "identifier_type in term",
+	t.identifier_subtype as "identifier_subtype in term",
+	t.language as "language in term",
+	t.term as "term",
+	t.source_system_cde,
+	description,
+	division_description,
+	species_description,
+	uc_designcode_material_id
+from
+	mio02_material m join mio02_material_term t on
+	m.material_guid = t.material_guid
+where
+	m.material_id in('placeholder_str')
+order by
+	product_category,
+	description,
+	m.material_id,
+	t.identifier_type,
+	t.identifier_subtype,
+	t.language
