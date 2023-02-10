@@ -1,14 +1,18 @@
-CREATE EXTERNAL TABLE spectrum_schema.stg099_Qliksense_in_process(
-  "qliksense_environment" VARCHAR(16383),
-  "qliksense_app_id" VARCHAR(16383),
-  "query_start_datetime" VARCHAR(16383),
-  "query_end_datetime" VARCHAR(16383),
-  "query_stmt" VARCHAR(16383))
-ROW FORMAT SERDE
-  'org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe'
-STORED AS INPUTFORMAT
-  'org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat'
-OUTPUTFORMAT
-  'org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat'
-LOCATION
-  's3://synintegration/DEV/ingestion/sqlflow/qliksense/in_process/'
+select 
+     l.user_id , l.database_instance
+     , q.qliksense_app_id is not null as QS_app_found
+     , sum(query_executions) as query_executions 
+     , count(distinct q.qliksense_app_id )  as count_qliksense_app_id 
+     from (
+     
+            select      l.query_stmt , l.user_id , l.database_instance 
+                        , max(query_executions) as query_executions 
+                from mio099_lineage_fact l
+                group by 1,2,3
+                
+          ) l
+     left join mio099_t_lineage_qliksense_fact   q on l.query_stmt = q.query_stmt 
+     where l.user_id in ('mio','mio_qlik_system','mio_qlik_monitor')  or l.user_id ilike '%qlik%'
+     group by 1,2,3 
+     order by 1,2,3
+     ;
