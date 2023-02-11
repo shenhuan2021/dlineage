@@ -1,18 +1,1 @@
-select 
-     l.user_id , l.database_instance
-     , q.qliksense_app_id is not null as QS_app_found
-     , sum(query_executions) as query_executions 
-     , count(distinct q.qliksense_app_id )  as count_qliksense_app_id 
-     from (
-     
-            select      l.query_stmt , l.user_id , l.database_instance 
-                        , max(query_executions) as query_executions 
-                from mio099_lineage_fact l
-                group by 1,2,3
-                
-          ) l
-     left join mio099_t_lineage_qliksense_fact   q on l.query_stmt = q.query_stmt 
-     where l.user_id in ('mio','mio_qlik_system','mio_qlik_monitor')  or l.user_id ilike '%qlik%'
-     group by 1,2,3 
-     order by 1,2,3
-     ;
+SELECT mio099_t_lineage_fact.fact_guid, mio099_t_lineage_fact.record_type, mio099_t_lineage_fact.tech_source_system_cde, mio099_t_lineage_fact.tech_source_object_name, mio099_t_lineage_fact.spectrum_folder, mio099_t_lineage_fact.source_object_id, mio099_t_lineage_fact.source_object_schema, mio099_t_lineage_fact.source_object_name, mio099_t_lineage_fact.source_column_name, mio099_t_lineage_fact.target_object_id, mio099_t_lineage_fact.target_object_schema, mio099_t_lineage_fact.target_object_name, mio099_t_lineage_fact.target_column_name, mio099_t_lineage_fact.predicates, mio099_t_lineage_fact.last_execution_datetime, mio099_t_lineage_fact.first_execution_datetime, mio099_t_lineage_fact.query_stmt, mio099_t_lineage_fact.query_executions, mio099_t_lineage_fact.user_id, mio099_t_lineage_fact.database_instance, mio099_t_lineage_fact.mio_delta_hash, mio099_t_lineage_fact.mio_create_date_time, mio099_t_lineage_fact.mio_created_by, mio099_t_lineage_fact.mio_update_date_time, mio099_t_lineage_fact.mio_updated_by, mio099_t_lineage_fact.mio_source_system_cde FROM mio099_t_lineage_fact;
