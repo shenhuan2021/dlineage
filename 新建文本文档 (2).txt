@@ -1,1 +1,10 @@
-SELECT mio099_t_lineage_fact.fact_guid, mio099_t_lineage_fact.record_type, mio099_t_lineage_fact.tech_source_system_cde, mio099_t_lineage_fact.tech_source_object_name, mio099_t_lineage_fact.spectrum_folder, mio099_t_lineage_fact.source_object_id, mio099_t_lineage_fact.source_object_schema, mio099_t_lineage_fact.source_object_name, mio099_t_lineage_fact.source_column_name, mio099_t_lineage_fact.target_object_id, mio099_t_lineage_fact.target_object_schema, mio099_t_lineage_fact.target_object_name, mio099_t_lineage_fact.target_column_name, mio099_t_lineage_fact.predicates, mio099_t_lineage_fact.last_execution_datetime, mio099_t_lineage_fact.first_execution_datetime, mio099_t_lineage_fact.query_stmt, mio099_t_lineage_fact.query_executions, mio099_t_lineage_fact.user_id, mio099_t_lineage_fact.database_instance, mio099_t_lineage_fact.mio_delta_hash, mio099_t_lineage_fact.mio_create_date_time, mio099_t_lineage_fact.mio_created_by, mio099_t_lineage_fact.mio_update_date_time, mio099_t_lineage_fact.mio_updated_by, mio099_t_lineage_fact.mio_source_system_cde FROM mio099_t_lineage_fact;
+select distinct mm.material_id , mm.description , mm.tradename_en from mio02_material mm left join mio02_material_source_specific sp on mm.material_guid=sp.material_guid where mm.source_system_cde='placeholder_str' and sp.material_type ='placeholder_str' and sp.material_type is not null
+
+
+
+
+select material_id, plant, season, document_date, delivery_date, overall_status, order_confirmation_status, overall_blocked_status, item_confirmation_status, item_overall_processing_status, order_quantity_in_base_uom, confirmed_quantity_in_base_uom from mio20_sales_order_fact msof where record_type ='placeholder_str' and sales_org_cde = 'placeholder_str' and season>='placeholder_str'
+
+
+
+select distinct mm.material_id , mm.description , mm.tradename_en from mio02_material mm left join mio02_material_source_specific sp on mm.material_guid=sp.material_guid where mm.source_system_cde='placeholder_str' and sp.material_type ='placeholder_str' and sp.material_type is not null
