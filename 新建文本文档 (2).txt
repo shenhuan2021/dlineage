@@ -1,10 +1,6 @@
-select distinct mm.material_id , mm.description , mm.tradename_en from mio02_material mm left join mio02_material_source_specific sp on mm.material_guid=sp.material_guid where mm.source_system_cde='placeholder_str' and sp.material_type ='placeholder_str' and sp.material_type is not null
-
-
-
-
-select material_id, plant, season, document_date, delivery_date, overall_status, order_confirmation_status, overall_blocked_status, item_confirmation_status, item_overall_processing_status, order_quantity_in_base_uom, confirmed_quantity_in_base_uom from mio20_sales_order_fact msof where record_type ='placeholder_str' and sales_org_cde = 'placeholder_str' and season>='placeholder_str'
-
-
-
-select distinct mm.material_id , mm.description , mm.tradename_en from mio02_material mm left join mio02_material_source_specific sp on mm.material_guid=sp.material_guid where mm.source_system_cde='placeholder_str' and sp.material_type ='placeholder_str' and sp.material_type is not null
+select distinct
+            source_object_id , target_object_id , user_id , query_stmt
+    from mio099_lineage_fact
+    where replace(query_stmt,' ','') like  (replace('select sales_year ,crop ,isnull(c.sold_to_sales_group,text(replace(a.sales_group_cid,%',' ','') )
+    order by query_stmt
+;  
